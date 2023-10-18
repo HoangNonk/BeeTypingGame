@@ -48,9 +48,9 @@ start.onclick = () => {
     // setTimeout(() => {
     //     clearInterval(interval)
     //     startTime = 5;
-        type.disabled = false;
-        type.focus();
-        replace();
+    type.disabled = false;
+    type.focus();
+    replace();
     //     setNewTime();
     // }, startTime * 1000)
 }
@@ -99,6 +99,8 @@ function getNewWord() {
 }
 
 //--------------------------- replace old word has typed -----------------------------
+
+
 function replace() {
     const newWord = getNewWord();
 
@@ -107,39 +109,64 @@ function replace() {
 
     // reset input
     type.value = '';
+
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
 
+
+let id = 0;
+let flag = true;
 type.addEventListener("input", (e) => {
     // input value
-    const value = myInput.value;
+    const inpValue = myInput.value;
 
     // word data
-    var newWord = text.textContent
+    var newWord = text.textContent;
+    type.maxLength = newWord.length;
+
+    // split the word to array for checking Char from keyName
+    var splitWord = newWord.split('')
+    if (splitWord[id] === inpValue[id]) {
+        e.target.classList.add('correct');
+        setTimeout(() => {
+            if (id === text.textContent.length) {
+                replace();
+                id = 0;
+            }
+            e.target.classList.remove('correct');
+
+        }, 500)
+        allkeyonscreen.forEach(e => {
+            e.classList.remove('changecolor')
+        })
+        console.log('Phần tử tách từ word:' + newWord.split('')[id]);
+        console.log('Phần tử nhập vào: ' + inpValue[id]);
+        flag = true;
+        console.log(flag);
+        console.log('Biến đêm phần tử :' + id);
+
+    } else {
+        console.log(newWord.split('')[id]);
+        console.log(inpValue[id]);
+        flag = false;
+        console.log(flag);
+    }
+    id++;
+
+
 
     // check if the input value is the same with the word from data
-    if (value.length === newWord.length) {
-        if (value === newWord) {
-            e.target.classList.add('correct');
-            setTimeout(() => {
-                e.target.classList.remove('correct');
-                replace();
-            }, 500)
-            allkeyonscreen.forEach(element => {
-                element.classList.remove('changecolor')
-            })
-        }else {
-            e.target.classList.add('wrong');
-            setTimeout(() => {
-                e.target.classList.remove('wrong');
-                replace();
-            }, 500)
-            allkeyonscreen.forEach(element => {
-                element.classList.remove('changecolor')
-            })
-        }
-    }
+    // if (value === newWord) {
+    //     e.target.classList.add('correct');
+    //     setTimeout(() => {
+    //         e.target.classList.remove('correct');
+    //         replace();
+    //     }, 500)
+    //     allkeyonscreen.forEach(element => {
+    //         element.classList.remove('changecolor')
+    //     })
+    // }
 })
 
 // Handle change color on keyboard
@@ -152,13 +179,14 @@ type.addEventListener("keydown", (e) => {
     var keyName = String.fromCharCode(keyCode)
 
     // check the keycode typed is the same with the key exist on screen
-    checkCorrectKey(allkeyonscreen, newWord, keyName)
+    checkCorrectKey(allkeyonscreen, newWord, keyName);
 });
 
 
 function checkCorrectKey(keyboard, word, keyName) {
     keyboard.forEach(e => {
         if (keyName == e.textContent) {
+
             if (word.toLowerCase().includes(keyName.toLowerCase())) {
                 // change color if that is the same
                 e.classList.add('changecolor');
@@ -167,15 +195,16 @@ function checkCorrectKey(keyboard, word, keyName) {
                 presskey.play();
             } else {
                 e.classList.remove('changecolor')
-                e.classList.add('wrongkey');
+                e.classList.add('wrong');
                 wrong.play();
 
                 setTimeout(() => {
-                    e.classList.remove('wrongkey')
+                    e.classList.remove('wrong')
                 }, 1000)
             }
         }
     })
 }
+
 
 

@@ -24,12 +24,18 @@
     box-shadow: 0 0 10px #ff9c00
 }
 
-.wrong {
+.wrongkey {
     color: red !important;
     border: 1px solid red !important;
     transform: translateY(-5px);
     box-shadow: 0 0 10px  red;
-    animation: shake 1s infinite;
+    animation: shake 1s;
+}
+
+.wrong {
+    color: red !important;
+    border-bottom: 3px solid red !important;
+    animation: shake 1s;
 }
 
 .correct {
@@ -39,11 +45,11 @@
 }
 
 @keyframes shake {
-    0% {
-        transform: translateY(5px);
+    0%,60% {
+        transform: translateX(5px);
     }
-    100% {
-        transform: none;
+    30%,100% {
+        transform: translateX(-5px);
     }
 }
 
