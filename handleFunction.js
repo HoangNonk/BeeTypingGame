@@ -48,9 +48,9 @@ start.onclick = () => {
     // setTimeout(() => {
     //     clearInterval(interval)
     //     startTime = 5;
-        type.disabled = false;
-        type.focus();
-        replace();
+    type.disabled = false;
+    type.focus();
+    replace();
     //     setNewTime();
     // }, startTime * 1000)
 }
@@ -110,13 +110,29 @@ function replace() {
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
-
+let indexChar = 0;
+let key;
 type.addEventListener("input", (e) => {
     // input value
-    const value = myInput.value;
+    var value = myInput.value;
+    indexChar = value.length-1
+    console.log(indexChar);
 
     // word data
     var newWord = text.textContent
+    if (newWord.split('')[indexChar] === value.split('')[indexChar]) {
+        key = true;
+        indexChar++
+    } else {
+        key = false
+    }
+
+    console.log(newWord.split('')[indexChar]);
+    console.log(value.split(''));
+    if (indexChar == newWord.length) {
+        indexChar = 0
+    }
+
 
     // check if the input value is the same with the word from data
     if (value.length === newWord.length) {
@@ -129,7 +145,7 @@ type.addEventListener("input", (e) => {
             allkeyonscreen.forEach(element => {
                 element.classList.remove('changecolor')
             })
-        }else {
+        } else {
             e.target.classList.add('wrong');
             setTimeout(() => {
                 e.target.classList.remove('wrong');
@@ -144,7 +160,6 @@ type.addEventListener("input", (e) => {
 
 // Handle change color on keyboard
 type.addEventListener("keydown", (e) => {
-    const value = myInput.value;
     var newWord = text.textContent
 
     // Get the key code typed
@@ -152,14 +167,9 @@ type.addEventListener("keydown", (e) => {
     var keyName = String.fromCharCode(keyCode)
 
     // check the keycode typed is the same with the key exist on screen
-    checkCorrectKey(allkeyonscreen, newWord, keyName)
-});
-
-
-function checkCorrectKey(keyboard, word, keyName) {
-    keyboard.forEach(e => {
+    allkeyonscreen.forEach(e => {
         if (keyName == e.textContent) {
-            if (word.toLowerCase().includes(keyName.toLowerCase())) {
+            if (newWord.toLowerCase().includes(keyName.toLowerCase()) && key == true) {
                 // change color if that is the same
                 e.classList.add('changecolor');
 
@@ -176,6 +186,6 @@ function checkCorrectKey(keyboard, word, keyName) {
             }
         }
     })
-}
+});
 
 
