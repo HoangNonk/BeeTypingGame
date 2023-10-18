@@ -1,0 +1,127 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    transition: 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.key {
+    color: white;
+    border: 1px solid white;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 1.2vw;
+    border-radius: 10px;
+}
+
+.changecolor {
+    color: #ff9c00 !important;
+    border: 1px solid #ff9c00 !important;
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px #ff9c00
+}
+
+.wrong {
+    color: red !important;
+    border: 1px solid red !important;
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px  red;
+    animation: shake 1s infinite;
+}
+
+.correct {
+    color: greenyellow !important;
+    border-bottom: 1px solid greenyellow !important;
+    transform: translateY(-5px);
+}
+
+@keyframes shake {
+    0% {
+        transform: translateY(5px);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+#myInput {
+    width: 80%;
+    padding: 15px;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid gray;
+    color: white;
+    text-align: center;
+    max-height: 55px;
+    letter-spacing: 5px;
+}
+
+#myInput:focus {
+    outline: none;
+    letter-spacing: 10px;
+    font-size: 1.5vw;
+    text-align: center;
+}
+
+#difficult {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    outline: none;
+}
+
+#difficult option {
+    color: black;
+    text-align: center;
+}
+
+#text {
+    padding: 10px 30px;
+    border: 1px solid white;
+    border-radius: 5px;
+    width: fit-content;
+    font-size: 2vw;
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+#text h3 {
+    letter-spacing: 3px;
+}
+
+#start {
+    border: 1px solid #ff9c00;
+    border-radius: 5px;
+    padding: 10px 30px;
+    font-size: 2vw;
+    color: #ff9c00;
+}
+
+#clock {
+    color: #ff9c00;
+}
+
+#start:hover {
+    box-shadow: 0 0 10px white;
+    border: 1px solid transparent;
+    color: white;
+}
+
+#start:active {
+    transform: translateY(3px);
+}
+
+
+.disapear {
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+.appear {
+    opacity: 1 !important;
+    transform: translate(0) !important;
+    display: block;
+}

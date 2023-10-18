@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/img/apitherapy.png" type="image/x-icon">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style/style.css">
+    <script src="index.js"></script>
+    <title>Typing Game For Bees</title>
+
+</head>
+
+<body class="bg-neutral-700 p-10 pb-0">
+    <audio id="presskey" src="assets/sound/presskey.mp3"></audio>
+    <audio id="wrong" src="assets/sound/wrong.mp3"></audio>
+
+    <div class="flex items-center justify-center gap-x-2">
+        <img width="100px" src="assets/img/apitherapy.png" alt="">
+        <h1 class="text-3xl text-white">
+            <p id="title">Bees Typing</p> 
+        </h1>
+    </div>
+
+    <div class="">
+        <select name="difficult" class="w-3/12 p-2 rounded" id="difficult">
+            <option value="">Choose Level</option>
+            <option value="hard">Hard</option>
+            <option value="medium">Medium</option>
+            <option value="easy">Easy</option>
+        </select>
+    </div>
+
+    <div id="typing" class="flex items-center justify-center flex-col gap-y-4">
+        <div class="follow_text flex items-center justify-center flex-col">
+            <div id="text" class="flex items-center justify-center">
+                <h3 class="text-white">Follow this Text</h3>
+                <input type="hidden" id="hide" value="">
+                <p class="ps-3 text-xl" id="clock"><span>2:00</span> <i class="fa-regular fa-clock"></i></p>
+            </div>
+            <button id="start" class="text-white">Let's Go</button>
+        </div>
+        <div class="boxtype flex justify-center w-6/12">
+            <input type="text" id="myInput" disabled>
+        </div>
+        <br><br>
+        <div id="keyboard" class="flex flex-col gap-4">
+            <div id="rowkey1" class="flex justify-center gap-4"></div>
+            <div id="rowkey2" class="flex justify-center gap-4"></div>
+            <div id="rowkey3" class="flex justify-center gap-4"></div>
+        </div>
+    </div>
+    <!-- <div class="flex justify-center items-end mt-24">
+        <p class="text-white">This belong to &copy; Longlhph31572@fpt.edu.vn</p>
+    </div> -->
+
+</body>
+<script src="handleFunction.js"></script>
+
+</html>
