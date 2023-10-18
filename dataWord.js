@@ -1,4 +1,17 @@
-const rowkey1 = [
+var rowkey1 = [
+    { name: "1", order: 1, keycode: 81 },
+    { name: "2", order: 2, keycode: 87 },
+    { name: "3", order: 3, keycode: 69 },
+    { name: "4", order: 3, keycode: 69 },
+    { name: "5", order: 3, keycode: 69 },
+    { name: "6", order: 3, keycode: 69 },
+    { name: "7", order: 3, keycode: 69 },
+    { name: "8", order: 3, keycode: 69 },
+    { name: "9", order: 3, keycode: 69 },
+    { name: "0", order: 3, keycode: 69 },
+]
+
+var rowkey2 = [
     { name: "Q", order: 1, keycode: 81 },
     { name: "W", order: 2, keycode: 87 },
     { name: "E", order: 3, keycode: 69 },
@@ -11,7 +24,7 @@ const rowkey1 = [
     { name: "P", order: 10, keycode: 80 },
 ]
 
-const rowkey2 = [
+var rowkey3 = [
     { name: "A", order: 1, keycode: 65 },
     { name: "S", order: 2, keycode: 83 },
     { name: "D", order: 3, keycode: 68 },
@@ -23,7 +36,7 @@ const rowkey2 = [
     { name: "L", order: 9, keycode: 76 },
 ]
 
-const rowkey3 = [
+var rowkey4 = [
     { name: "Z", order: 1, keycode: 90 },
     { name: "X", order: 2, keycode: 88 },
     { name: "C", order: 3, keycode: 67 },

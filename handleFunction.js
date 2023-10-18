@@ -3,6 +3,8 @@
 const presskey = document.getElementById('presskey');
 const wrong = document.getElementById('wrong');
 
+const title = document.getElementById('title')
+const logo = document.getElementById('logo')
 const type = document.getElementById("myInput");
 const start = document.getElementById('start');
 const boxtext = document.getElementById('text');
@@ -16,6 +18,7 @@ var clockCounting = document.querySelector('#clock span');
 const row1 = document.querySelector('#rowkey1');
 const row2 = document.querySelector('#rowkey2');
 const row3 = document.querySelector('#rowkey3');
+const row4 = document.querySelector('#rowkey4');
 
 // Render key on keyboard
 function renderKey(array, rowkey) {
@@ -29,9 +32,10 @@ function renderKey(array, rowkey) {
     }
 }
 
-renderKey(rowkey1, row1)
+// renderKey(rowkey1, row1)
 renderKey(rowkey2, row2)
 renderKey(rowkey3, row3)
+renderKey(rowkey4, row4)
 
 const allkeyonscreen = document.querySelectorAll('.key');
 
@@ -41,6 +45,7 @@ start.onclick = () => {
     boxtext.classList.add('appear');
     start.classList.add('disapear');
     type.placeholder = "Type in here...";
+
     // var interval = setInterval(() => {
     //     getStart()
     // }, 1000)
@@ -110,36 +115,34 @@ function replace() {
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
-let indexChar = 0;
+// declare check variable
 let key;
 type.addEventListener("input", (e) => {
     // input value
     var value = myInput.value;
-    indexChar = value.length-1
-    console.log(indexChar);
 
     // word data
     var newWord = text.textContent
+
+    // declare counting variable
+    let indexChar = value.length -2;
+    console.log(indexChar);
+
     if (newWord.split('')[indexChar] === value.split('')[indexChar]) {
         key = true;
-        indexChar++
     } else {
         key = false
     }
 
-    console.log(newWord.split('')[indexChar]);
-    console.log(value.split(''));
-    if (indexChar == newWord.length) {
-        indexChar = 0
-    }
-
-
     // check if the input value is the same with the word from data
     if (value.length === newWord.length) {
-        if (value === newWord) {
+        if (key = true) {
             e.target.classList.add('correct');
+            type.disabled = true
             setTimeout(() => {
                 e.target.classList.remove('correct');
+                type.disabled = false
+                type.focus()
                 replace();
             }, 500)
             allkeyonscreen.forEach(element => {
@@ -147,9 +150,12 @@ type.addEventListener("input", (e) => {
             })
         } else {
             e.target.classList.add('wrong');
+            type.disabled = true
             setTimeout(() => {
                 e.target.classList.remove('wrong');
                 replace();
+                type.disabled = false
+                type.focus()
             }, 500)
             allkeyonscreen.forEach(element => {
                 element.classList.remove('changecolor')
@@ -160,16 +166,13 @@ type.addEventListener("input", (e) => {
 
 // Handle change color on keyboard
 type.addEventListener("keydown", (e) => {
-    var newWord = text.textContent
-
     // Get the key code typed
     var keyCode = e.keyCode;
-    var keyName = String.fromCharCode(keyCode)
 
     // check the keycode typed is the same with the key exist on screen
     allkeyonscreen.forEach(e => {
-        if (keyName == e.textContent) {
-            if (newWord.toLowerCase().includes(keyName.toLowerCase()) && key == true) {
+        if (keyCode == e.dataset.keycode) {
+            if (key == true) {
                 // change color if that is the same
                 e.classList.add('changecolor');
 
