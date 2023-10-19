@@ -117,7 +117,7 @@ function replace() {
 //--------------------------- Listening event on input , on key down -----------------------------
 // declare check variable
 var key;
-type.addEventListener("input", (e) => {
+type.addEventListener("input", (event) => {
 
     // input value
     var value = myInput.value;
@@ -129,12 +129,32 @@ type.addEventListener("input", (e) => {
 
     // declare counting variable
     indexChar = value.length - 1;
-
     if (newWord.split('')[indexChar] === value[indexChar]) {
-        key = true;
-    } else {
-        key = false
+        allkeyonscreen.forEach(e => {
+            if (value[indexChar].toUpperCase() === e.textContent) {
+
+                // change color if that is the same
+                e.classList.add('changecolor');
+
+                // sound presskey on
+                presskey.play();
+            }
+        })
     }
+    else {
+        allkeyonscreen.forEach(e => {
+
+            if (value[indexChar].toUpperCase() === e.textContent) {
+                e.classList.remove('changecolor')
+                e.classList.add('wrongkey');
+                wrong.play();
+                setTimeout(() => {
+                    e.classList.remove('wrongkey')
+                }, 1000)
+            }
+        })
+    }
+
 
     console.log(newWord.split(''));
     console.log(value.split(''))
@@ -143,10 +163,10 @@ type.addEventListener("input", (e) => {
     // check if the input value is the same with the word from data
     if (value.length === newWord.length) {
         if (value === newWord) {
-            e.target.classList.add('correct');
+            event.target.classList.add('correct');
             type.disabled = true
             setTimeout(() => {
-                e.target.classList.remove('correct');
+                event.target.classList.remove('correct');
                 type.disabled = false
                 type.focus()
                 replace();
@@ -155,10 +175,10 @@ type.addEventListener("input", (e) => {
                 element.classList.remove('changecolor')
             })
         } else {
-            e.target.classList.add('wrong');
+            event.target.classList.add('wrong');
             type.disabled = true
             setTimeout(() => {
-                e.target.classList.remove('wrong');
+                event.target.classList.remove('wrong');
                 replace();
                 type.disabled = false
                 type.focus()
@@ -169,33 +189,5 @@ type.addEventListener("input", (e) => {
         }
     }
 })
-
-// Handle change color on keyboard
-type.addEventListener("keydown", (e) => {
-    const newWord = text.textContent;
-    // Get the key code typed
-    var keyCode = e.keyCode;
-    var keyName = String.fromCharCode(keyCode)
-
-    // check the keycode typed is the same with the key exist on screen
-    allkeyonscreen.forEach(e => {
-        if (keyName == e.textContent) {
-            if (key == true) {
-                // change color if that is the same
-                e.classList.add('changecolor');
-
-                // sound presskey on
-                presskey.play();
-            } else {
-                e.classList.remove('changecolor')
-                e.classList.add('wrongkey');
-                wrong.play();
-                setTimeout(() => {
-                    e.classList.remove('wrongkey')
-                }, 1000)
-            }
-        }
-    })
-});
 
 

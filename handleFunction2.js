@@ -3,8 +3,6 @@
 const presskey = document.getElementById('presskey');
 const wrong = document.getElementById('wrong');
 
-const title = document.getElementById('title')
-const logo = document.getElementById('logo')
 const type = document.getElementById("myInput");
 const start = document.getElementById('start');
 const boxtext = document.getElementById('text');
@@ -18,7 +16,6 @@ var clockCounting = document.querySelector('#clock span');
 const row1 = document.querySelector('#rowkey1');
 const row2 = document.querySelector('#rowkey2');
 const row3 = document.querySelector('#rowkey3');
-const row4 = document.querySelector('#rowkey4');
 
 // Render key on keyboard
 function renderKey(array, rowkey) {
@@ -32,10 +29,9 @@ function renderKey(array, rowkey) {
     }
 }
 
-// renderKey(rowkey1, row1)
+renderKey(rowkey1, row1)
 renderKey(rowkey2, row2)
 renderKey(rowkey3, row3)
-renderKey(rowkey4, row4)
 
 const allkeyonscreen = document.querySelectorAll('.key');
 
@@ -45,7 +41,6 @@ start.onclick = () => {
     boxtext.classList.add('appear');
     start.classList.add('disapear');
     type.placeholder = "Type in here...";
-
     // var interval = setInterval(() => {
     //     getStart()
     // }, 1000)
@@ -104,6 +99,8 @@ function getNewWord() {
 }
 
 //--------------------------- replace old word has typed -----------------------------
+
+
 function replace() {
     const newWord = getNewWord();
 
@@ -112,75 +109,85 @@ function replace() {
 
     // reset input
     type.value = '';
+
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
-// declare check variable
-var key;
-type.addEventListener("input", (e) => {
 
+
+let flag = true;
+let id = 0;
+type.addEventListener("input", (e) => {
     // input value
-    var value = myInput.value;
+    const inpValue = myInput.value;
 
     // word data
-    var newWord = text.textContent
+    var newWord = text.textContent;
+    type.maxLength = newWord.length;
 
-    // console.log(indexChar);
+    // split the word to array for checking Char from keyName
+    var splitWord = newWord.split('')
+    if (splitWord[id] === inpValue[id]) {
+        e.target.classList.add('correct');
+        setTimeout(() => {
+            if (id === text.textContent.length) {
+                replace();
+                id = 0;
+            }
+            e.target.classList.remove('correct');
 
-    // declare counting variable
-    indexChar = value.length - 1;
+        }, 500)
+        allkeyonscreen.forEach(e => {
+            e.classList.remove('changecolor')
+        })
+        console.log('Phần tử tách từ word:' + newWord.split('')[id]);
+        console.log('Phần tử nhập vào: ' + inpValue[id]);
+        flag = true;
+        console.log(flag);
+        console.log('Biến đêm phần tử :' + id);
 
-    if (newWord.split('')[indexChar] === value[indexChar]) {
-        key = true;
     } else {
-        key = false
+        console.log(newWord.split('')[id]);
+        console.log(inpValue[id]);
+        flag = false;
+        console.log(flag);
     }
+    id++;
 
-    console.log(newWord.split(''));
-    console.log(value.split(''))
-    console.log(key);
+
 
     // check if the input value is the same with the word from data
-    if (value.length === newWord.length) {
-        if (value === newWord) {
-            e.target.classList.add('correct');
-            type.disabled = true
-            setTimeout(() => {
-                e.target.classList.remove('correct');
-                type.disabled = false
-                type.focus()
-                replace();
-            }, 500)
-            allkeyonscreen.forEach(element => {
-                element.classList.remove('changecolor')
-            })
-        } else {
-            e.target.classList.add('wrong');
-            type.disabled = true
-            setTimeout(() => {
-                e.target.classList.remove('wrong');
-                replace();
-                type.disabled = false
-                type.focus()
-            }, 500)
-            allkeyonscreen.forEach(element => {
-                element.classList.remove('changecolor')
-            })
-        }
-    }
+    // if (value === newWord) {
+    //     e.target.classList.add('correct');
+    //     setTimeout(() => {
+    //         e.target.classList.remove('correct');
+    //         replace();
+    //     }, 500)
+    //     allkeyonscreen.forEach(element => {
+    //         element.classList.remove('changecolor')
+    //     })
+    // }
 })
 
 // Handle change color on keyboard
 type.addEventListener("keydown", (e) => {
-    const newWord = text.textContent;
+    const value = myInput.value;
+    var newWord = text.textContent
+
     // Get the key code typed
     var keyCode = e.keyCode;
     var keyName = String.fromCharCode(keyCode)
 
     // check the keycode typed is the same with the key exist on screen
-    allkeyonscreen.forEach(e => {
+    checkCorrectKey(allkeyonscreen, newWord, keyName);
+});
+
+
+function checkCorrectKey(keyboard, word, keyName) {
+    keyboard.forEach(e => {
         if (keyName == e.textContent) {
-            if (key == true) {
+
+            if (word.toLowerCase().includes(keyName.toLowerCase())) {
                 // change color if that is the same
                 e.classList.add('changecolor');
 
@@ -188,14 +195,16 @@ type.addEventListener("keydown", (e) => {
                 presskey.play();
             } else {
                 e.classList.remove('changecolor')
-                e.classList.add('wrongkey');
+                e.classList.add('wrong');
                 wrong.play();
+
                 setTimeout(() => {
-                    e.classList.remove('wrongkey')
+                    e.classList.remove('wrong')
                 }, 1000)
             }
         }
     })
-});
+}
+
 
 
