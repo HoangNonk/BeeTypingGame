@@ -21,15 +21,14 @@ const row3 = document.querySelector('#rowkey3');
 const row4 = document.querySelector('#rowkey4');
 
 // Render key on keyboard
-function renderKey(array, rowkey) {
-    for (let i = 0; i < array.length; i++) {
-        const element = array[i];
+function renderKey(keyboard, rowkey) {
+    keyboard.forEach(e => {
         var key = document.createElement('p');
-        key.textContent = element.name;
+        key.textContent = e.name;
         key.classList.add('key');
-        key.dataset.keycode = element.keycode
+        key.dataset.keycode = e.keycode
         rowkey.appendChild(key);
-    }
+    })
 }
 
 // renderKey(rowkey1, row1)
@@ -114,10 +113,42 @@ function replace() {
     type.value = '';
 }
 
+
+//--------------------------- Handle Correct/Wrong key on keyboard -----------------------------
+
+function checkCorrectKeyOnBoard(keyboard, input, color, sound) {
+    keyboard.forEach(key => {
+        if (input.toUpperCase() === key.textContent) {
+            var time
+            key.classList.add(color)
+            sound.play()
+            color === "changecolor" ? time = 1000 : time = 500 
+            setTimeout(() => { key.classList.remove(color) },time)
+        }
+    })
+}
+
+//--------------------------- Handle Correct/Wrong input String -----------------------------
+
+function checkInputString(inputString,compareString,event) {
+    var color;
+    if (inputString.length === compareString.length) {
+        inputString === compareString ? color = "correct" : color = "wrong"
+        event.target.classList.add(color);
+        type.disabled = true
+        setTimeout(() => {
+            event.target.classList.remove(color);
+            type.disabled = false
+            type.focus()
+            replace();
+        }, 500)
+    }
+}
+
 //--------------------------- Listening event on input , on key down -----------------------------
-// declare check variable
-var key;
+
 type.addEventListener("input", (event) => {
+    var keySound, keyColor
 
     // input value
     var value = myInput.value;
@@ -125,69 +156,20 @@ type.addEventListener("input", (event) => {
     // word data
     var newWord = text.textContent
 
-    // console.log(indexChar);
-
     // declare counting variable
     indexChar = value.length - 1;
-    if (newWord.split('')[indexChar] === value[indexChar]) {
-        allkeyonscreen.forEach(e => {
-            if (value[indexChar].toUpperCase() === e.textContent) {
 
-                // change color if that is the same
-                e.classList.add('changecolor');
+    // indexChar from newWord
+    var charFromNewWord = newWord.split('')[indexChar]
 
-                // sound presskey on
-                presskey.play();
-            }
-        })
-    }
-    else {
-        allkeyonscreen.forEach(e => {
+    // indexChar from inputvalue
+    var charFromInput = value[indexChar];
 
-            if (value[indexChar].toUpperCase() === e.textContent) {
-                e.classList.remove('changecolor')
-                e.classList.add('wrongkey');
-                wrong.play();
-                setTimeout(() => {
-                    e.classList.remove('wrongkey')
-                }, 1000)
-            }
-        })
-    }
+    charFromNewWord === charFromInput ? keyColor = "changecolor" : keyColor = "wrongkey"
+    keyColor === "changecolor" ? keySound = presskey : keySound = wrong
 
-
-    console.log(newWord.split(''));
-    console.log(value.split(''))
-    console.log(key);
-
-    // check if the input value is the same with the word from data
-    if (value.length === newWord.length) {
-        if (value === newWord) {
-            event.target.classList.add('correct');
-            type.disabled = true
-            setTimeout(() => {
-                event.target.classList.remove('correct');
-                type.disabled = false
-                type.focus()
-                replace();
-            }, 500)
-            allkeyonscreen.forEach(element => {
-                element.classList.remove('changecolor')
-            })
-        } else {
-            event.target.classList.add('wrong');
-            type.disabled = true
-            setTimeout(() => {
-                event.target.classList.remove('wrong');
-                replace();
-                type.disabled = false
-                type.focus()
-            }, 500)
-            allkeyonscreen.forEach(element => {
-                element.classList.remove('changecolor')
-            })
-        }
-    }
+    checkCorrectKeyOnBoard(allkeyonscreen, charFromInput, keyColor, keySound)
+    checkInputString(value, newWord, event)
 })
 
 
