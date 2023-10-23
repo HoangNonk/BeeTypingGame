@@ -6,15 +6,27 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body {
+    background-color: rgba(53,53,53,1);
+}
+
 .key {
     color: white;
     border: 1px solid white;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     text-align: center;
-    line-height: 80px;
-    font-size: 1.2vw;
+    line-height: 60px;
+    font-size: 1vw;
     border-radius: 10px;
+}
+
+#space {
+    width: 50%;
+}
+
+#f, #j {
+    text-decoration-line: overline;
 }
 
 .changecolor {
@@ -51,6 +63,14 @@
     20%,60%,100% {
         transform: translateX(-5px);
     }
+}
+
+.correctLetter {
+    color: greenyellow;
+}
+
+.wrongLetter {
+    color: red;
 }
 
 #myInput {

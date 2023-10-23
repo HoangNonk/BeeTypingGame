@@ -16,13 +16,15 @@
 
 </head>
 
-<body class="bg-neutral-700 p-10 pb-0">
+<body class="p-10 pb-0">
     <audio id="presskey" src="assets/sound/presskey.mp3"></audio>
     <audio id="wrong" src="assets/sound/wrong.mp3"></audio>
 
-    <div class="flex items-center justify-center gap-x-2">
-        <img id="logo" width="100px" src="assets/img/apitherapy.png" alt="">
-        <h1 class="text-3xl text-white" id="title">Bees Typing</h1>
+    <div id="title">
+        <div class="flex items-center justify-center gap-x-2 w-3/12 mx-auto">
+            <img id="logo" width="100px" src="assets/img/apitherapy.png" alt="">
+            <h1 class="text-3xl text-white" id="">Bees Typing</h1>
+        </div>
     </div>
 
     <div class="">
@@ -36,15 +38,15 @@
 
     <div id="typing" class="flex items-center justify-center flex-col gap-y-4">
         <div class="follow_text flex items-center justify-center flex-col">
-            <div id="text" class="flex items-center justify-center">
+            <div id="text" class="">
                 <h3 class="text-white">Follow this Text</h3>
-                <input type="hidden" id="hide" value="">
-                <p class="ps-3 text-xl" id="clock"><span>2:00</span> <i class="fa-regular fa-clock"></i></p>
+                <!-- <h3 class="text-white"><span class="letter">M</span><span class="letter">o</span><span class="letter">d</span><span class="letter">u</span><span class="letter">l</span><span class="letter">e</span></h3> -->
             </div>
             <button id="start" class="text-white">Let's Go</button>
         </div>
         <div class="boxtype flex justify-center w-6/12">
-            <input type="text" id="myInput" disabled>
+            <input style="opacity: 1;"  type="text" id="myInput" disabled>
+            <div id="textword"></div>
         </div>
         <br><br>
         <div id="keyboard" class="flex flex-col gap-4">
@@ -52,12 +54,10 @@
             <div id="rowkey2" class="flex justify-center gap-4"></div>
             <div id="rowkey3" class="flex justify-center gap-4"></div>
             <div id="rowkey4" class="flex justify-center gap-4"></div>
+            <div id="rowkey5" class="flex justify-center gap-4">
+            </div>
         </div>
     </div>
-    <!-- <div class="flex justify-center items-end mt-24">
-        <p class="text-white">This belong to &copy; Longlhph31572@fpt.edu.vn</p>
-    </div> -->
-
 </body>
 <script src="handleFunction3.js"></script>
 
