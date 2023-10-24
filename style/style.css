@@ -13,12 +13,12 @@ body {
 .key {
     color: white;
     border: 1px solid white;
-    width: 60px;
-    height: 60px;
+    width: 55px;
+    height: 55px;
     text-align: center;
-    line-height: 60px;
+    line-height: 55px;
     font-size: 1vw;
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 #space {
@@ -46,13 +46,11 @@ body {
 
 .wrong {
     color: red !important;
-    /* border-bottom: 3px solid red !important; */
     animation: shake 0.5s;
 }
 
 .correct {
     color: greenyellow !important;
-    /* border-bottom: 1px solid greenyellow !important; */
     transform: translateY(-5px);
 }
 
@@ -66,21 +64,19 @@ body {
 }
 
 .typing {
-    border-right: 0.5px solid #ccc;
-    animation: opaBorder 1s infinite;
-    padding-right: -1px;
+    border-right: 1px solid rgba(255, 255, 255, 0.4);
     margin-right: -1px;
+    animation: opaBorder 1s infinite;
 }
 
 @keyframes opaBorder {
     from {
-        border-color: #ccc;
+        border-color: transparent;
     }
     to {
-        border-color: rgba(0, 0, 0, 0);
+        border-color: rgba(255, 255, 255, 0.4);
     }
 }
-
 
 .correctLetter {
     color: #ff9c00;
@@ -121,26 +117,25 @@ body {
 }
 
 #text {
-    padding: 10px 30px;
-    border: 1px solid white;
-    border-radius: 5px;
     width: fit-content;
-    font-size: 2vw;
+    font-size: 1.4vw;
     transform: translateY(-100%);
     opacity: 0;
+    overflow: hidden;
+    text-align: justify;
+    text-wrap: wrap;
+    max-width: 100%;
 }
 
 #text span {
     overflow: hidden;
+    margin-right: -1px;
+    border-right: 1px solid transparent;
 }
 
 #text h3 {
     color: rgba(255, 255, 255, 0.4);
-    text-overflow: ellipsis;
-    letter-spacing: 3px;
-    max-height: 5vh;
-    overflow: hidden;
-    scroll-behavior: smooth;
+    letter-spacing: 2px;
 }
 
 #start {

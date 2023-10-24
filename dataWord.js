@@ -22,7 +22,7 @@ var rowkey2 = [
     { name: "Y", id: "y", char: "y", shift: "Y", keycode: 89 },
     { name: "U", id: "u", char: "u", shift: "U", keycode: 85 },
     { name: "I", id: "i", char: "i", shift: "I", keycode: 73 },
-    { name: "P", id: "o", char: "o", shift: "O", keycode: 79 },
+    { name: "O", id: "o", char: "o", shift: "O", keycode: 79 },
     { name: "P", id: "p", char: "p", shift: "P", keycode: 80 },
     { name: "[", id: "[", char: "[", shift: "{", keycode: 91 },
     { name: "]", id: "]", char: "]", shift: "}", keycode: 93 },
@@ -61,14 +61,8 @@ var rowkey5 = [
 ]
 
 const words = [
-    `In the heart of the bustling city, where the cacophony of car horns and the hum of conversations filled the air, there existed a serene park. This park was an oasis of calm, an escape from the urban frenzy. Tall trees provided shade under which families picnicked and children played. The gentle rustle of leaves in the breeze was a soothing lullaby to all who visited.
-
-    Amidst the greenery, there was a beautiful pond. Its glassy surface mirrored the azure sky above, with lily pads and vibrant koi fish below. A bridge made of weathered stone spanned the pond, inviting people to wander to its other side, where an ornate gazebo stood.
-    
-    As the sun dipped below the horizon, the park transformed. Soft lamps illuminated the pathways, casting a warm, inviting glow. Couples strolled hand in hand, their laughter and whispered words blending with the chorus of crickets. Under the moon's gentle light, the park became a place of romantic rendezvous, a sanctuary for the city's dreamers.
-    
-    This park was a testament to the harmonious coexistence of nature and urban life, where the cacophony of the city's chaos found solace in the tranquil embrace of the natural world.
-    `,
+    `In the heart of the bustling city, where the cacophony of car horns and the hum of`,
+    `In the heart of the bustling city, where the cacophony of car horns and the hum of conversations filled the air, there existed a serene park. This park was an oasis of calm, an escape from the urban frenzy. Tall trees provided shade under which families picnicked and children played. The gentle rustle of leaves in the breeze was a soothing lullaby to all who visited`,
     // 'Sensor',
     // 'Design',
     // 'Gaming',
