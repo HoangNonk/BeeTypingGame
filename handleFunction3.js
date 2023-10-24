@@ -23,7 +23,7 @@ function renderKey(keyboard, rowkey) {
     keyboard.forEach(e => {
         var key = document.createElement('p');
         key.textContent = e.name;
-        key.id = e.char
+        key.id = e.id
         key.classList.add('key');
         key.dataset.keycode = e.keycode
         key.dataset.shift = e.shift
@@ -124,7 +124,6 @@ function replace() {
     split.forEach(e => {
         const letter = document.createElement('span');
         letter.textContent = e
-        letter.classList.add('letter')
         text.appendChild(letter);
     })
 
@@ -163,19 +162,25 @@ function checkInputString(inputString, compareString, event) {
             type.disabled = false
             type.focus()
             replace();
-        }, 500)
+        }, 200)
     }
 }
 
 //--------------------------- Handle Correct/Wrong letters on New Word -------------------------
 
-function checkCorrectLettersOnWord(letters, index, color) {
-    if (color === 'correctLetter') {
-        letters[index].classList.remove('wrongLetter')
-    }else {
-        letters[index].classList.remove('correctLetter')
+function checkCorrectLettersOnWord(letters, index,input, color) {
+    if (input.length == 0) {
+        letters.forEach(lt => {
+            lt.className = '';
+        })
     }
-    letters[index].classList.add(color);
+    if (input.length !== letters.length) {
+        letters[index + 1].className = '';
+        letters.forEach(lt => {
+            lt.classList.remove('typing');
+        })
+    }
+    letters[index].className = `${color} typing`
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
@@ -208,7 +213,7 @@ type.addEventListener("input", (event) => {
 
     // ---
     letterColor = charFromNewWord === charFromInput ? 'correctLetter' : 'wrongLetter'
-    checkCorrectLettersOnWord(lettersFromWord,indexChar,letterColor)
+    checkCorrectLettersOnWord(lettersFromWord,indexChar,value,letterColor)
 })
 
 

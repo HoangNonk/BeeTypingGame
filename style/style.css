@@ -46,13 +46,13 @@ body {
 
 .wrong {
     color: red !important;
-    border-bottom: 3px solid red !important;
+    /* border-bottom: 3px solid red !important; */
     animation: shake 0.5s;
 }
 
 .correct {
     color: greenyellow !important;
-    border-bottom: 1px solid greenyellow !important;
+    /* border-bottom: 1px solid greenyellow !important; */
     transform: translateY(-5px);
 }
 
@@ -65,8 +65,25 @@ body {
     }
 }
 
+.typing {
+    border-right: 0.5px solid #ccc;
+    animation: opaBorder 1s infinite;
+    padding-right: -1px;
+    margin-right: -1px;
+}
+
+@keyframes opaBorder {
+    from {
+        border-color: #ccc;
+    }
+    to {
+        border-color: rgba(0, 0, 0, 0);
+    }
+}
+
+
 .correctLetter {
-    color: greenyellow;
+    color: #ff9c00;
 }
 
 .wrongLetter {
@@ -88,7 +105,6 @@ body {
 
 #myInput:focus {
     outline: none;
-    letter-spacing: 10px;
     text-align: center;
 }
 
@@ -114,8 +130,17 @@ body {
     opacity: 0;
 }
 
+#text span {
+    overflow: hidden;
+}
+
 #text h3 {
+    color: rgba(255, 255, 255, 0.4);
+    text-overflow: ellipsis;
     letter-spacing: 3px;
+    max-height: 5vh;
+    overflow: hidden;
+    scroll-behavior: smooth;
 }
 
 #start {
