@@ -9,7 +9,7 @@ const type = document.getElementById("myInput");
 const start = document.getElementById('start');
 const boxtext = document.getElementById('text');
 const text = document.querySelector('#text h3');
-var lettersFromWord
+var lettersFromWord, wordsFromQuote
 //--------------------------- Get all keys exist on screen ---------------------------
 // Select row key on keyboard
 const row1 = document.querySelector('#rowkey1');
@@ -45,7 +45,6 @@ var startTime = 5;
 start.onclick = () => {
     boxtext.classList.add('appear');
     start.classList.add('disapear');
-    type.placeholder = "Type in here...";
     title.classList.add('disapear')
     getStart()
 
@@ -66,18 +65,16 @@ start.onclick = () => {
 
 function getStart() {
     startTime--;
-    // title.textContent = startTime + 's';
     title.innerHTML = `
     <div class="flex items-center justify-center gap-x-2 w-3/12 mx-auto">
         <img id="logo" width="100px" src="assets/img/down-time.gif" alt="">
         <p id="clock">${startTime}</p>
     </div>
     `
-    // title.classList.remove('disapear')
 }
 
 function setNewTime() {
-    startTime = 50;
+    startTime = 10;
 
     var interval = setInterval(() => {
         getStart();
@@ -87,8 +84,6 @@ function setNewTime() {
         clearInterval(interval)
         startTime = 0;
         type.disabled = true;
-        type.value = 'Your result is ...'
-        // type.classList.add('disapear')
     }, startTime * 1000)
 }
 
@@ -101,10 +96,10 @@ function timeout(startTime) {
 //--------------------------------- get new word ---------------------------------------
 function getNewWord() {
     // get data array length
-    const wordsdata = words.length
+    const data = words.length
 
     // get random element in array
-    const random = Math.random() * wordsdata;
+    const random = Math.random() * data;
 
     // rounding the randomnumber has earned
     const index = Math.floor(random);
@@ -113,20 +108,53 @@ function getNewWord() {
     return words[index];
 }
 
+//--------------------------------- get new word ---------------------------------------
+function getNewQuote() {
+    // get data array length
+    const data = quotes.length
+
+    // get random element in array
+    const random = Math.random() * data;
+
+    // rounding the randomnumber has earned
+    const index = Math.floor(random);
+
+    // return the final index of array
+    return quotes[index];
+}
+
 //--------------------------- replace old word has typed -----------------------------
 function replace() {
-    const newWord = getNewWord();
+    // const data = getNewWord();
 
-    var split = newWord.split('');
-
+    const data = getNewQuote();
     text.textContent = ''
 
-    split.forEach(e => {
-        const letter = document.createElement('span');
-        letter.textContent = e
-        text.appendChild(letter);
-    })
+    // var split = data.split('');
 
+
+    // split.forEach(e => {
+    //     const letter = document.createElement('span');
+    //     letter.textContent = e
+    //     letter.classList.add('wordType')
+    //     text.appendChild(letter);
+
+    // })
+
+    // lettersFromWord = document.querySelectorAll('span')
+
+    for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        var word = document.createElement('p')
+        for (let i = 0; i < element.length; i++) {
+            var letter = document.createElement('span');
+            letter.textContent = element[i]
+            word.appendChild(letter)
+        }
+        text.appendChild(word)
+    }
+
+    wordsFromQuote = document.querySelectorAll('#text p')
     lettersFromWord = document.querySelectorAll('span')
 
     // reset input
@@ -149,7 +177,7 @@ function checkCorrectKeyOnBoard(keyboard, input, color, sound) {
 
 //--------------------------- Handle Correct/Wrong input String -----------------------------
 
-function checkInputString(inputString, compareString, event) {
+function checkInputString(inputString, compareString) {
     var color;
     if (inputString.length === compareString.length) {
         inputString === compareString ? color = "correct" : color = "wrong"
@@ -166,24 +194,27 @@ function checkInputString(inputString, compareString, event) {
 
 //--------------------------- Handle Correct/Wrong letters on New Word -------------------------
 
-function checkCorrectLettersOnWord(letters, index,input, color) {
+function checkCorrectLettersOnWord(letters, index, input, color) {
+
     if (input.length == 0) {
         letters.forEach(lt => {
             lt.className = '';
         })
     }
+
     if (input.length !== letters.length) {
         letters[index + 1].className = '';
         letters.forEach(lt => {
             lt.classList.remove('typing');
         })
     }
+
     letters[index].className = `${color} typing`
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
+type.addEventListener("input", () => {
 
-type.addEventListener("input", (event) => {
     var keySound, keyColor, letterColor
 
     // input value
@@ -194,7 +225,6 @@ type.addEventListener("input", (event) => {
 
     // declare counting variable
     indexChar = value.length - 1;
-    console.log(indexChar);
 
     // indexChar from newWord
     var charFromNewWord = newWord.split('')[indexChar]
@@ -207,11 +237,11 @@ type.addEventListener("input", (event) => {
     checkCorrectKeyOnBoard(allkeyonscreen, charFromInput, keyColor, keySound)
 
     // ----
-    checkInputString(value, newWord, event)
+    checkInputString(value, newWord)
 
     // ---
     letterColor = charFromNewWord === charFromInput ? 'correctLetter' : 'wrongLetter'
-    checkCorrectLettersOnWord(lettersFromWord,indexChar,value,letterColor)
+    checkCorrectLettersOnWord(lettersFromWord, indexChar, value, letterColor)
 })
 
 

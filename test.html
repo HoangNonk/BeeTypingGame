@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+
+  <h3 id="text"></h3>
+
+  <script>
+    const quote = [
+      [`The`, `future`, `belongs`, `to`, `those`, `who`, `believe`, `in`, `the`, `beauty`, `of`, `their`, `dreams.`, `Life`, `is`, `an`, `adventure,`, `and`, `every`, `moment,`, `a`, `chance`, `to`, `reach`, `for`, `the`, `stars.`, `In`, `the`, `end,`, `we`, `only`, `regret`, `the`, `chances`, `we`, `didn't`, `take,`, `and`, `the`, `decisions`, `we`, `were`, `too`, `afraid`, `to`, `make.`]
+    ]
+
+    var text = document.querySelector('#text');
+    for (let index = 0; index < quote.length; index++) {
+      const element = quote[index];
+      var word = document.createElement('span')
+      // element.forEach(e => {
+      //   const letter = document.createElement('letter');
+      //   letter.textContent = e + ' ';
+      //   word.appendChild(letter);
+      // })
+      for (let i = 0; i < element.length; i++) {
+        const letter = element[i];
+        var letters = document.createElement('letter');
+        letters.textContent = letter + ' ';
+        word.appendChild(letters)
+      }
+      text.appendChild(word)
+    }
+  </script>
+
+  <script>
+    var span = document.querySelectorAll('letter')
+    console.log(span);
+  </script>
+</body>
+
+</html>

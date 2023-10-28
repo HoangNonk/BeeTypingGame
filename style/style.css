@@ -6,13 +6,26 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+:root {
+    --main-color: rgba()
+}
+
 body {
-    background-color: rgba(53,53,53,1);
+    background-color: rgba(53, 53, 53, 1);
+    height: 100vh;
+    position: relative;
+}
+
+#keyboard {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .key {
-    color: white;
-    border: 1px solid white;
+    color: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.4);
     width: 55px;
     height: 55px;
     text-align: center;
@@ -22,10 +35,11 @@ body {
 }
 
 #space {
-    width: 50%;
+    width: 55%;
 }
 
-#f, #j {
+#f,
+#j {
     text-decoration-line: overline;
 }
 
@@ -40,27 +54,18 @@ body {
     color: red !important;
     border: 1px solid red !important;
     transform: translateY(-5px);
-    box-shadow: 0 0 10px  red;
+    box-shadow: 0 0 10px red;
     animation: shake 1s;
 }
 
 .wrong {
     color: red !important;
-    animation: shake 0.5s;
+    text-decoration: line-through !important;
 }
 
 .correct {
     color: greenyellow !important;
-    transform: translateY(-5px);
-}
-
-@keyframes shake {
-    0%,40%,60% {
-        transform: translateX(5px);
-    }
-    20%,60%,100% {
-        transform: translateX(-5px);
-    }
+    text-decoration: underline;
 }
 
 .typing {
@@ -73,6 +78,7 @@ body {
     from {
         border-color: transparent;
     }
+
     to {
         border-color: rgba(255, 255, 255, 0.4);
     }
@@ -84,24 +90,6 @@ body {
 
 .wrongLetter {
     color: red;
-}
-
-#myInput {
-    width: 100%;
-    padding-bottom: 20px;
-    border: none;
-    background-color: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    text-align: center;
-    max-height: 55px;
-    letter-spacing: 5px;
-    font-size: 1.5vw;
-}
-
-#myInput:focus {
-    outline: none;
-    text-align: center;
 }
 
 #difficult {
@@ -117,14 +105,17 @@ body {
 }
 
 #text {
-    width: fit-content;
-    font-size: 1.4vw;
+    margin-top: -5%;
     transform: translateY(-100%);
     opacity: 0;
-    overflow: hidden;
-    text-align: justify;
+    position: relative;
     text-wrap: wrap;
-    max-width: 100%;
+    width: 75%;
+    height: 25vh;
+}
+
+#text p {
+    all: unset;
 }
 
 #text span {
@@ -133,20 +124,30 @@ body {
     border-right: 1px solid transparent;
 }
 
-#text h3 {
+#text h3,
+#myInput {
+    width: 100%;
+    padding: 0 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: rgba(255, 255, 255, 0.4);
     letter-spacing: 2px;
 }
 
+#myInput {
+    border: none;
+    height: 35vh;
+    background-color: transparent;
+}
+
 #start {
+    z-index: 21958;
     border: 1px solid #ff9c00;
     border-radius: 5px;
     padding: 10px 30px;
     font-size: 2vw;
-    color: #ff9c00;
-}
-
-#clock {
     color: #ff9c00;
 }
 
@@ -170,4 +171,14 @@ body {
     opacity: 1 !important;
     transform: translate(0) !important;
     display: block;
+}
+
+.wordMode {
+    text-align: center;
+    font-size: 2vw;
+}
+
+.quoteMode {
+    text-align: justify;
+    font-size: 1.5vw;
 }
