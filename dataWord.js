@@ -1,3 +1,5 @@
+// -------------------------------------- ALL KEYS ON KEYBOARD -------------------------------------------
+
 var rowkey1 = [
     { name: "1 !", id: "1", char: "1", shift: "!", keycode: 49 },
     { name: "2 @", id: "2", char: "2", shift: "@", keycode: 50 },
@@ -60,59 +62,93 @@ var rowkey5 = [
     { name: "______________", id: "space", char: " ", shift: "", keycode: 32 },
 ]
 
-const words = [
-    `Sensor`, `Design`, `Gaming`, `Mobile`, `Camera`, `Printer`, `Source`, `Object`, `Thread`, `Buffer`, `Plugin`, `Search`, `Render`, `Engine`, `Socket`, `Vector`, `Filter`, `Module`, `Script`, `Console`, `Export`, `Gateway`, `Daemon`, `Project`, `Speaker`, `Monitor`, `Control`, `Firmware`, `Library`, `Display`, `Battery`, `Database`, `Package`, `Scanner`, `Adapter`, `Firewall`, `Content`, `Network`, `Service`, `Thay Hoang dep try`, `Longlhph31572`,
+// -------------------------------------- ALL DATA WORDS - QUOTES - SYMBOLS - CHARS -------------------------------
+
+var q, quotes = [], w, words = [], letters
+
+w = [
+    "apple",
+    "banana",
+    "cherry",
+    "dog",
+    "elephant",
+    "fox",
+    "grape",
+    "horse",
+    "ice cream",
+    "jacket",
+    "kangaroo",
+    "lemon",
+    "monkey",
+    "noodle",
+    "orange",
+    "parrot",
+    "quokka",
+    "rabbit",
+    "strawberry",
+    "turtle",
+    "umbrella",
+    "violet",
+    "watermelon",
+    "xylophone",
+    "yogurt",
+    "zebra",
+    "car",
+    "train",
+    "flower",
+    "sun",
+    "moon",
+    "star",
+    "ocean",
+    "mountain",
+    "river",
+    "computer",
+    "book",
+    "pen",
+    "pencil",
+    "notebook",
+    "desk",
+    "chair",
+    "table",
+    "lamp",
+    "shoes",
+    "hat",
+    "shirt",
+    "pants",
+    "socks",
+    "guitar"
+];
+
+q = [
+    `Success is not final, failure is not fatal: It is the courage to continue that counts.`,
+    `The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.`,
+    `In three words I can sum up everything I've learned about life: it goes on.`,
+    `The best way to predict the future is to create it.`,
+    `Life is really simple, but we insist on making it complicated.`,
+    `The only thing necessary for the triumph of evil is for good men to do nothing.`,
+    `Happiness is not something ready made. It comes from your own actions.`,
+    `The only limit to our realization of tomorrow will be our doubts of today.`,
+    `The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.`,
+    `Don't count the days, make the days count.`,
 ]
 
-const quotes = [
-    [`The`, ` `,
-        `future`, ` `,
-        `belongs`, ` `,
-        `to`, ` `,
-        `those`, ` `,
-        `who`, ` `,
-        `believe`, ` `,
-        `in`, ` `,
-        `the`, ` `,
-        `beauty`, ` `,
-        `of`, ` `,
-        `their`, ` `,
-        `dreams.`, ` `,
-        `Life`, ` `,
-        `is`, ` `,
-        `an`, ` `,
-        `adventure`, ` `,
-        `and`, ` `,
-        `every`, ` `,
-        `moment`, ` `,
-        `a`, ` `,
-        `chance`, ` `,
-        `to`, ` `,
-        `reach`, ` `,
-        `for`, ` `,
-        `the`, ` `,
-        `stars.`, ` `,
-        `In`, ` `,
-        `the`, ` `,
-        `end,`, ` `,
-        `we`, ` `,
-        `only`, ` `,
-        `regret`, ` `,
-        `the`, ` `,
-        `chances`, ` `,
-        `we`, ` `,
-        `didn't`, ` `,
-        `take,`, ` `,
-        , `and`, ` `,
-        `the`, ` `,
-        `decisions`, ` `,
-        `we`, ` `,
-        `were`, ` `,
-        `too`, ` `,
-        `afraid`, ` `,
-        `to`, ` `,
-        `make.`]
-]
+// --------------- Collect words -----------------
+
+w.forEach(e => {
+    letters = e.split('')
+    words.push(letters)
+})
+
+// --------------- Collect quotes -----------------
+
+const regQuote = /[\S]+|\s/g
+q.forEach(e => {
+    letters = e.match(regQuote);
+    quotes.push(letters);
+})
+
+// console.log(quotes);
+// console.log(words);
 
 
 

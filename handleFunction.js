@@ -9,7 +9,7 @@ const type = document.getElementById("myInput");
 const start = document.getElementById('start');
 const boxtext = document.getElementById('text');
 const text = document.querySelector('#text h3');
-var lettersFromWord, wordsFromQuote
+var lettersFromWord
 //--------------------------- Get all keys exist on screen ---------------------------
 // Select row key on keyboard
 const row1 = document.querySelector('#rowkey1');
@@ -74,7 +74,7 @@ function getStart() {
 }
 
 function setNewTime() {
-    startTime = 10;
+    startTime = 100;
 
     var interval = setInterval(() => {
         getStart();
@@ -125,37 +125,35 @@ function getNewQuote() {
 
 //--------------------------- replace old word has typed -----------------------------
 function replace() {
-    // const data = getNewWord();
+    const data = getNewWord();
+    // const data = getNewQuote();
 
-    const data = getNewQuote();
     text.textContent = ''
 
-    // var split = data.split('');
+    var word = document.createElement('p')
+    data.forEach(e => {
+        const letter = document.createElement('span');
+        letter.textContent = e
+        word.appendChild(letter);
+    })
+
+    text.appendChild(word)
 
 
-    // split.forEach(e => {
-    //     const letter = document.createElement('span');
-    //     letter.textContent = e
-    //     letter.classList.add('wordType')
-    //     text.appendChild(letter);
+    // for (let index = 0; index < data.length; index++) {
+    //     var word = document.createElement('p')
+    //     var wordData = data[index]
+    //     var split = wordData.split('')
+    //     console.log(split);
 
-    // })
+    //     split.forEach(e => {
+    //         const letter = document.createElement('span');
+    //         letter.textContent = e
+    //         word.appendChild(letter);
+    //     })
 
-    // lettersFromWord = document.querySelectorAll('span')
-
-    for (let index = 0; index < data.length; index++) {
-        const element = data[index];
-        var word = document.createElement('p')
-        for (let i = 0; i < element.length; i++) {
-            var letter = document.createElement('span');
-            letter.textContent = element[i]
-            word.appendChild(letter)
-        }
-        text.appendChild(word)
-    }
-
-    wordsFromQuote = document.querySelectorAll('#text p')
-    lettersFromWord = document.querySelectorAll('span')
+    //     text.appendChild(word)
+    // }
 
     // reset input
     type.value = '';
@@ -195,19 +193,10 @@ function checkInputString(inputString, compareString) {
 //--------------------------- Handle Correct/Wrong letters on New Word -------------------------
 
 function checkCorrectLettersOnWord(letters, index, input, color) {
+    
+    input.length == 0 ? letters.forEach(lt => { lt.className = '' }) : ''
 
-    if (input.length == 0) {
-        letters.forEach(lt => {
-            lt.className = '';
-        })
-    }
-
-    if (input.length !== letters.length) {
-        letters[index + 1].className = '';
-        letters.forEach(lt => {
-            lt.classList.remove('typing');
-        })
-    }
+    letters.forEach(lt => { lt.classList.remove('typing') })
 
     letters[index].className = `${color} typing`
 }
@@ -228,6 +217,7 @@ type.addEventListener("input", () => {
 
     // indexChar from newWord
     var charFromNewWord = newWord.split('')[indexChar]
+    console.log(charFromNewWord);
 
     // indexChar from inputvalue
     var charFromInput = value[indexChar];
@@ -240,8 +230,12 @@ type.addEventListener("input", () => {
     checkInputString(value, newWord)
 
     // ---
+    lettersFromWord = document.querySelectorAll('#text span')
     letterColor = charFromNewWord === charFromInput ? 'correctLetter' : 'wrongLetter'
     checkCorrectLettersOnWord(lettersFromWord, indexChar, value, letterColor)
+
+    // ---
+    calcScore(correctWord, input)
 })
 
 
