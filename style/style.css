@@ -58,6 +58,10 @@ body {
     animation: shake 1s;
 }
 
+#text span {
+    border-color: #ff9c00;
+}
+
 .wrong {
     color: red !important;
     text-decoration: line-through !important;
@@ -65,31 +69,21 @@ body {
 
 .correct {
     color: greenyellow !important;
-    text-decoration: underline;
 }
 
 .typing {
-    border-right: 1px solid rgba(255, 255, 255, 0.4);
-    margin-right: -1px;
-    animation: opaBorder 1s infinite;
-}
-
-@keyframes opaBorder {
-    from {
-        border-color: transparent;
-    }
-
-    to {
-        border-color: rgba(255, 255, 255, 0.4);
-    }
+    padding-bottom: 3px;
+    border-bottom: 1px solid;
 }
 
 .correctLetter {
     color: #ff9c00;
+    border-color: #ff9c00;
 }
 
 .wrongLetter {
     color: red;
+    border-color: red !important;
 }
 
 #difficult {
@@ -116,12 +110,6 @@ body {
 
 #text p {
     all: unset;
-}
-
-#text span {
-    overflow: hidden;
-    margin-right: -1px;
-    border-right: 1px solid transparent;
 }
 
 #text h3,

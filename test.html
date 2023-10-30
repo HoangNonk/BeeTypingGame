@@ -1,98 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+    <style>
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
 </head>
-
 <body>
-  <script>
-    var q, quotes = [], w, words = []
+    <div id="parentDiv">
+        <div class="childDiv">Child 1</div>
+        <div class="childDiv highlight">Child 2 (Highlighted)</div>
+        <div class="childDiv">Child 3</div>
+    </div>
+    
+    <script>
+        // JavaScript code to check if a parent element has a child with a specific class
+        var parentElement = document.getElementById("parentDiv");
+        var childElements = parentElement.getElementsByClassName("highlight");
 
-    w = [
-      "apple",
-      "banana",
-      "cherry",
-      "dog",
-      "elephant",
-      "fox",
-      "grape",
-      "horse",
-      "ice cream",
-      "jacket",
-      "kangaroo",
-      "lemon",
-      "monkey",
-      "noodle",
-      "orange",
-      "parrot",
-      "quokka",
-      "rabbit",
-      "strawberry",
-      "turtle",
-      "umbrella",
-      "violet",
-      "watermelon",
-      "xylophone",
-      "yogurt",
-      "zebra",
-      "car",
-      "train",
-      "flower",
-      "sun",
-      "moon",
-      "star",
-      "ocean",
-      "mountain",
-      "river",
-      "computer",
-      "book",
-      "pen",
-      "pencil",
-      "notebook",
-      "desk",
-      "chair",
-      "table",
-      "lamp",
-      "shoes",
-      "hat",
-      "shirt",
-      "pants",
-      "socks",
-      "guitar"
-    ];
-
-    q = [
-      `Success is not final, failure is not fatal: It is the courage to continue that counts.`,
-      `The only way to do great work is to love what you do. If you haven't found it yet, keep looking. Don't settle.`,
-      `In three words I can sum up everything I've learned about life: it goes on.`,
-      `The best way to predict the future is to create it.`,
-      `Life is really simple, but we insist on making it complicated.`,
-      `The only thing necessary for the triumph of evil is for good men to do nothing.`,
-      `Happiness is not something ready made. It comes from your own actions.`,
-      `The only limit to our realization of tomorrow will be our doubts of today.`,
-      `The best and most beautiful things in the world cannot be seen or even touched - they must be felt with the heart.`,
-      `Don't count the days, make the days count.`,
-    ]
-
-    const regQuote = /[\S]+|\s/g
-
-    w.forEach(e => {
-      var wordsAndSpaces = e.split('')
-      words.push(wordsAndSpaces)
-    })
-
-    q.forEach(e => {
-      var wordsAndSpaces = e.match(regQuote);
-      quotes.push(wordsAndSpaces);
-    })
-
-    console.log(quotes);
-    console.log(words);
-
-  </script>
+        if (childElements.length > 0) {
+            console.log('1');
+        } else {
+          console.log('0');
+        }
+    </script>
 </body>
-
 </html>

@@ -9,7 +9,7 @@ const type = document.getElementById("myInput");
 const start = document.getElementById('start');
 const boxtext = document.getElementById('text');
 const text = document.querySelector('#text h3');
-var lettersFromWord
+var lettersFromWord, typedWords
 //--------------------------- Get all keys exist on screen ---------------------------
 // Select row key on keyboard
 const row1 = document.querySelector('#rowkey1');
@@ -54,13 +54,16 @@ start.onclick = () => {
 
     setTimeout(() => {
         clearInterval(interval)
-        startTime = 5;
+        // startTime = 5;
 
         type.disabled = false;
         type.focus();
         replace();
         setNewTime();
-    }, startTime * 1000)
+        // }, startTime * 1000)
+    }, 1000)
+
+
 }
 
 function getStart() {
@@ -68,13 +71,22 @@ function getStart() {
     title.innerHTML = `
     <div class="flex items-center justify-center gap-x-2 w-3/12 mx-auto">
         <img id="logo" width="100px" src="assets/img/down-time.gif" alt="">
-        <p id="clock">${startTime}</p>
+        <p class="text-white" id="clock">${startTime}</p>
     </div>
     `
-}
+    var t = []
 
+    if (startTime == 0) {
+        typedWords = document.querySelectorAll('#text p');
+        typedWords.forEach(e => {
+            var typedLetter = e.getElementsByClassName('wrongLetter');
+            typedLetter.length > 0 ? t.push(typedLetter) : ''
+        })
+    }
+    console.log(t);
+}
 function setNewTime() {
-    startTime = 100;
+    startTime = 10;
 
     var interval = setInterval(() => {
         getStart();
@@ -125,35 +137,35 @@ function getNewQuote() {
 
 //--------------------------- replace old word has typed -----------------------------
 function replace() {
-    const data = getNewWord();
-    // const data = getNewQuote();
-
     text.textContent = ''
 
-    var word = document.createElement('p')
-    data.forEach(e => {
-        const letter = document.createElement('span');
-        letter.textContent = e
-        word.appendChild(letter);
-    })
+    // const data = getNewWord();
 
-    text.appendChild(word)
+    // var word = document.createElement('p')
+    // data.forEach(e => {
+    //     const letter = document.createElement('span');
+    //     letter.textContent = e
+    //     word.appendChild(letter);
+    // })
 
+    // text.appendChild(word)
 
-    // for (let index = 0; index < data.length; index++) {
-    //     var word = document.createElement('p')
-    //     var wordData = data[index]
-    //     var split = wordData.split('')
-    //     console.log(split);
+    const data = getNewQuote();
 
-    //     split.forEach(e => {
-    //         const letter = document.createElement('span');
-    //         letter.textContent = e
-    //         word.appendChild(letter);
-    //     })
+    for (let index = 0; index < data.length; index++) {
+        var word = document.createElement('p')
+        var wordData = data[index]
+        var split = wordData.split('')
 
-    //     text.appendChild(word)
-    // }
+        split.forEach(e => {
+            const letter = document.createElement('span');
+            letter.textContent = e
+            word.appendChild(letter);
+        })
+
+        text.appendChild(word)
+    }
+
 
     // reset input
     type.value = '';
@@ -190,18 +202,24 @@ function checkInputString(inputString, compareString) {
     }
 }
 
-//--------------------------- Handle Correct/Wrong letters on New Word -------------------------
+//--------------------------- Handle Correct/Wrong letters on Words from Data -------------------------
 
 function checkCorrectLettersOnWord(letters, index, input, color) {
-    
-    input.length == 0 ? letters.forEach(lt => { lt.className = '' }) : ''
 
-    letters.forEach(lt => { lt.classList.remove('typing') })
+    if (input.length == 0) {
+        letters.forEach(lt => { lt.className = '' })
+    }
+
+    if (input.length !== letters.length) {
+        letters[index + 1].className = ``
+        letters.forEach(lt => { lt.classList.remove('typing') })
+    }
 
     letters[index].className = `${color} typing`
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
+var score = 0;
 type.addEventListener("input", () => {
 
     var keySound, keyColor, letterColor
@@ -217,7 +235,6 @@ type.addEventListener("input", () => {
 
     // indexChar from newWord
     var charFromNewWord = newWord.split('')[indexChar]
-    console.log(charFromNewWord);
 
     // indexChar from inputvalue
     var charFromInput = value[indexChar];
@@ -234,8 +251,9 @@ type.addEventListener("input", () => {
     letterColor = charFromNewWord === charFromInput ? 'correctLetter' : 'wrongLetter'
     checkCorrectLettersOnWord(lettersFromWord, indexChar, value, letterColor)
 
-    // ---
-    calcScore(correctWord, input)
+
+
+
 })
 
 

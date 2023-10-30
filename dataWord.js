@@ -1,6 +1,6 @@
 // -------------------------------------- ALL KEYS ON KEYBOARD -------------------------------------------
 
-var rowkey1 = [
+const rowkey1 = [
     { name: "1 !", id: "1", char: "1", shift: "!", keycode: 49 },
     { name: "2 @", id: "2", char: "2", shift: "@", keycode: 50 },
     { name: "3 #", id: "3", char: "3", shift: "#", keycode: 51 },
@@ -15,7 +15,7 @@ var rowkey1 = [
     { name: "= +", id: "=", char: "=", shift: "+", keycode: 61 },
 ]
 
-var rowkey2 = [
+const rowkey2 = [
     { name: "Q", id: "q", char: "q", shift: "Q", keycode: 81 },
     { name: "W", id: "w", char: "w", shift: "W", keycode: 87 },
     { name: "E", id: "e", char: "e", shift: "E", keycode: 69 },
@@ -31,7 +31,7 @@ var rowkey2 = [
     { name: "\\ |", id: "\\", char: "\\", shift: "|", keycode: 93 },
 ]
 
-var rowkey3 = [
+const rowkey3 = [
     { name: "A", id: "a", char: "a", shift: "A", keycode: 65 },
     { name: "S", id: "s", char: "s", shift: "S", keycode: 83 },
     { name: "D", id: "d", char: "d", shift: "D", keycode: 68 },
@@ -45,7 +45,7 @@ var rowkey3 = [
     { name: "' \"", id: "'", char: "'", shift: "\"", keycode: 39 },
 ]
 
-var rowkey4 = [
+const rowkey4 = [
     { name: "Z", id: "z", char: "z", shift: "Z", keycode: 90 },
     { name: "X", id: "x", char: "x", shift: "X", keycode: 88 },
     { name: "C", id: "c", char: "c", shift: "C", keycode: 67 },
@@ -58,7 +58,7 @@ var rowkey4 = [
     { name: "/ ?", id: "/", char: "/", shift: "?", keycode: 46 },
 ];
 
-var rowkey5 = [
+const rowkey5 = [
     { name: "______________", id: "space", char: " ", shift: "", keycode: 32 },
 ]
 
