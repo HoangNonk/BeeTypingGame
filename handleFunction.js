@@ -74,19 +74,34 @@ function getStart() {
         <p class="text-white" id="clock">${startTime}</p>
     </div>
     `
-    var t = []
-
-    if (startTime == 0) {
-        typedWords = document.querySelectorAll('#text p');
-        typedWords.forEach(e => {
-            var typedLetter = e.getElementsByClassName('wrongLetter');
-            typedLetter.length > 0 ? t.push(typedLetter) : ''
-        })
-    }
-    console.log(t);
+    // startTime == 0 ? calcScore() : ''
 }
+
+const arr = (arr) => { return Array.from(arr) }
+
+var score = 0;
+function calcScore() {
+    var removeSpace = [];
+    typedWords = document.querySelectorAll('#text p');
+    typedWords.forEach(e => { e.textContent === ' ' ? '' : removeSpace.push(e) })
+
+    var check = false;
+
+    // Array.from(removeSpace).forEach(w => {
+    arr(removeSpace).forEach(w => {
+        var typedLetter = w.getElementsByTagName('span')
+        arr(typedLetter).forEach(lt => {
+            lt.className === 'correctLetter' ? check = true : check = false
+        })
+        check == true ? score++ : ''
+    })
+
+    console.log('Điểm: + ' + score)
+    console.log(removeSpace.length);
+}
+
 function setNewTime() {
-    startTime = 10;
+    startTime = 20;
 
     var interval = setInterval(() => {
         getStart();
@@ -136,36 +151,35 @@ function getNewQuote() {
 }
 
 //--------------------------- replace old word has typed -----------------------------
+
 function replace() {
+    calcScore();
+
     text.textContent = ''
 
-    // const data = getNewWord();
+    const data = getNewWord();
 
-    // var word = document.createElement('p')
-    // data.forEach(e => {
-    //     const letter = document.createElement('span');
-    //     letter.textContent = e
-    //     word.appendChild(letter);
+    var word = document.createElement('p')
+    arr(data).forEach(lt => {
+        const letter = document.createElement('span');
+        letter.textContent = lt
+        word.appendChild(letter);
+    })
+
+    text.appendChild(word)
+
+    // const data = getNewQuote();
+
+    // arr(data).forEach(w => {
+    //     var word = document.createElement('p')
+    //     var split = w.split('')
+    //     arr(split).forEach(lt => {
+    //         const letter = document.createElement('span');
+    //         letter.textContent = lt
+    //         word.appendChild(letter);
+    //     })
+    //     text.appendChild(word)
     // })
-
-    // text.appendChild(word)
-
-    const data = getNewQuote();
-
-    for (let index = 0; index < data.length; index++) {
-        var word = document.createElement('p')
-        var wordData = data[index]
-        var split = wordData.split('')
-
-        split.forEach(e => {
-            const letter = document.createElement('span');
-            letter.textContent = e
-            word.appendChild(letter);
-        })
-
-        text.appendChild(word)
-    }
-
 
     // reset input
     type.value = '';
@@ -206,9 +220,7 @@ function checkInputString(inputString, compareString) {
 
 function checkCorrectLettersOnWord(letters, index, input, color) {
 
-    if (input.length == 0) {
-        letters.forEach(lt => { lt.className = '' })
-    }
+    input.length == 0 ? letters.forEach(lt => { lt.className = '' }) : ''
 
     if (input.length !== letters.length) {
         letters[index + 1].className = ``
@@ -251,9 +263,7 @@ type.addEventListener("input", () => {
     letterColor = charFromNewWord === charFromInput ? 'correctLetter' : 'wrongLetter'
     checkCorrectLettersOnWord(lettersFromWord, indexChar, value, letterColor)
 
-
-
-
+    // calcScore();
 })
 
 

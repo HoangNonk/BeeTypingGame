@@ -147,8 +147,6 @@ q.forEach(e => {
     quotes.push(letters);
 })
 
-// console.log(quotes);
-// console.log(words);
 
 
 
