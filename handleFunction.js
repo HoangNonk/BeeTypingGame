@@ -1,22 +1,33 @@
 
 // ----------------------------- Declare DOM -----------------------------------------
-const presskey = document.getElementById('presskey');
-const wrong = document.getElementById('wrong');
+const getAll = (dom) => document.querySelectorAll(dom)
+const get = (dom) => document.querySelector(dom)
+const create = (dom) => document.createElement(dom)
 
-const title = document.getElementById('title')
-const logo = document.getElementById('logo')
-const type = document.getElementById("myInput");
-const start = document.getElementById('start');
-const boxtext = document.getElementById('text');
-const text = document.querySelector('#text h3');
-var lettersFromWord, typedWords
+// --- Sound --- 
+const presskey = get('#presskey')
+const wrong = get('#wrong')
+
+// Logo - Title - Start
+const title = get('#title')
+const logo = get('#logo')
+const start = get('#start');
+
+// Text - Input
+const boxtext = get('#text');
+const text = get('#text h3');
+const type = get("#myInput");
+
+// -- Using Global variables --
+var lettersFromWord, typedWords, wrongWordsTyped = [], correctWordsTyped = []
+
 //--------------------------- Get all keys exist on screen ---------------------------
 // Select row key on keyboard
-const row1 = document.querySelector('#rowkey1');
-const row2 = document.querySelector('#rowkey2');
-const row3 = document.querySelector('#rowkey3');
-const row4 = document.querySelector('#rowkey4');
-const row5 = document.querySelector('#rowkey5');
+const row1 = get('#rowkey1');
+const row2 = get('#rowkey2');
+const row3 = get('#rowkey3');
+const row4 = get('#rowkey4');
+const row5 = get('#rowkey5');
 
 // Render key on keyboard
 function renderKey(keyboard, rowkey) {
@@ -24,7 +35,7 @@ function renderKey(keyboard, rowkey) {
         var key = document.createElement('p');
         key.textContent = e.name;
         key.id = e.id
-        key.classList.add('key');
+        key.className = 'key'
         key.dataset.keycode = e.keycode
         key.dataset.shift = e.shift
         key.dataset.char = e.char
@@ -75,33 +86,43 @@ function getStart() {
     </div>
     `
     // startTime == 0 ? calcScore() : ''
+    if (startTime == 0) {
+        type.disabled = true;
+        text.textContent = calcScore()
+    }
 }
 
 const arr = (arr) => { return Array.from(arr) }
 
-var score = 0;
 function calcScore() {
     var removeSpace = [];
-    typedWords = document.querySelectorAll('#text p');
+    typedWords = getAll('#text p')
+    // typedWords = document.querySelectorAll('#text p');
     typedWords.forEach(e => { e.textContent === ' ' ? '' : removeSpace.push(e) })
 
-    var check = false;
-
-    // Array.from(removeSpace).forEach(w => {
     arr(removeSpace).forEach(w => {
-        var typedLetter = w.getElementsByTagName('span')
-        arr(typedLetter).forEach(lt => {
-            lt.className === 'correctLetter' ? check = true : check = false
-        })
-        check == true ? score++ : ''
+        var typedLetter = getAll('#text .correctLetter');
+        var typedLetter2 = getAll('#text .wrongLetter');
+        var lettersInWord = getAll('#text span')
+
+        typedLetter.length === lettersInWord.length ? correctWordsTyped.push(w) : ''
+        typedLetter2.length === lettersInWord.length ? wrongWordsTyped.push(w) : ''
     })
 
-    console.log('Điểm: + ' + score)
-    console.log(removeSpace.length);
+    var score = correctWordsTyped.length / (50 / 60)
+    console.log('Số từ đúng: ' + correctWordsTyped.length);
+    console.log('Số từ sai: ' + wrongWordsTyped.length);
+    console.log(`Tốc độ gõ: ${score.toFixed(2)} wpm`)
+
+    return `
+            Số từ đúng: ${correctWordsTyped.length} ~
+            Số từ sai: ${wrongWordsTyped.length} ~
+            Tốc độ gõ: ${score.toFixed(2)} wpm
+    `
 }
 
 function setNewTime() {
-    startTime = 20;
+    startTime = 10;
 
     var interval = setInterval(() => {
         getStart();
@@ -153,15 +174,13 @@ function getNewQuote() {
 //--------------------------- replace old word has typed -----------------------------
 
 function replace() {
-    calcScore();
-
     text.textContent = ''
 
     const data = getNewWord();
 
-    var word = document.createElement('p')
+    var word = create('p')
     arr(data).forEach(lt => {
-        const letter = document.createElement('span');
+        const letter = create('span');
         letter.textContent = lt
         word.appendChild(letter);
     })
@@ -171,10 +190,10 @@ function replace() {
     // const data = getNewQuote();
 
     // arr(data).forEach(w => {
-    //     var word = document.createElement('p')
+    //     var word = create('p')
     //     var split = w.split('')
     //     arr(split).forEach(lt => {
-    //         const letter = document.createElement('span');
+    //         const letter = create('span');
     //         letter.textContent = lt
     //         word.appendChild(letter);
     //     })
@@ -201,6 +220,7 @@ function checkCorrectKeyOnBoard(keyboard, input, color, sound) {
 
 //--------------------------- Handle Correct/Wrong input String -----------------------------
 
+var wordScore = 0;
 function checkInputString(inputString, compareString) {
     var color;
     if (inputString.length === compareString.length) {
@@ -214,13 +234,15 @@ function checkInputString(inputString, compareString) {
             replace();
         }, 200)
     }
+
+    color === 'correct' ? wordScore++ : ''
 }
 
-//--------------------------- Handle Correct/Wrong letters on Words from Data -------------------------
+//--------------------------- Handle Correct/Wrong letters on Words from Data ---------------------
 
 function checkCorrectLettersOnWord(letters, index, input, color) {
 
-    input.length == 0 ? letters.forEach(lt => { lt.className = '' }) : ''
+    input.length == 0 ? arr(letters).forEach(lt => { lt.className = '' }) : ''
 
     if (input.length !== letters.length) {
         letters[index + 1].className = ``
@@ -231,9 +253,8 @@ function checkCorrectLettersOnWord(letters, index, input, color) {
 }
 
 //--------------------------- Listening event on input , on key down -----------------------------
-var score = 0;
-type.addEventListener("input", () => {
 
+type.addEventListener("input", () => {
     var keySound, keyColor, letterColor
 
     // input value
@@ -263,7 +284,7 @@ type.addEventListener("input", () => {
     letterColor = charFromNewWord === charFromInput ? 'correctLetter' : 'wrongLetter'
     checkCorrectLettersOnWord(lettersFromWord, indexChar, value, letterColor)
 
-    // calcScore();
+    calcScore();
 })
 
 

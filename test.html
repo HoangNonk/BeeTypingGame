@@ -1,29 +1,34 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <style>
-        .highlight {
-            background-color: yellow;
-        }
-    </style>
-</head>
-<body>
-    <div id="parentDiv">
-        <div class="childDiv">Child 1</div>
-        <div class="childDiv highlight">Child 2 (Highlighted)</div>
-        <div class="childDiv">Child 3</div>
-    </div>
-    
-    <script>
-        // JavaScript code to check if a parent element has a child with a specific class
-        var parentElement = document.getElementById("parentDiv");
-        var childElements = parentElement.getElementsByClassName("highlight");
+<html lang="en">
 
-        if (childElements.length > 0) {
-            console.log('1');
+<head>
+    <meta charset="UTF-8">
+    <title>Ví dụ sử dụng hàm get</title>
+</head>
+
+<body>
+    <div id="text">
+        <p>Đây là nội dung của phần tử p bên trong phần tử có id là "text".</p>
+        <p>kjahdfkahf;</p>
+        <p>grgljaehrg</p>
+        <p>2213132</p>
+        <p>3</p>
+    </div>
+    <script>
+        const get = (domChild) => document.querySelectorAll(domChild);
+
+        // Sử dụng hàm để lấy phần tử
+        var textI = get('#text p');
+        console.log(textI);
+
+        // Kiểm tra xem phần tử có tồn tại không
+        if (textI) {
+            console.log("Phần tử đã được lấy: ", textI.textContent);
         } else {
-          console.log('0');
+            console.log("Không tìm thấy phần tử.");
         }
+
     </script>
 </body>
+
 </html>
