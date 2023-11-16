@@ -101,9 +101,10 @@ function calcScore() {
     typedWords.forEach(e => { e.textContent === ' ' ? '' : removeSpace.push(e) })
 
     arr(removeSpace).forEach(w => {
-        var typedLetter = getAll('#text .correctLetter');
-        var typedLetter2 = getAll('#text .wrongLetter');
-        var lettersInWord = getAll('#text span')
+        var typedLetter = w.getElementsByClassName('correctLetter');
+        var typedLetter2 = w.getElementsByClassName('wrongLetter');
+        console.log(typedLetter);
+        var lettersInWord = w.getElementsByTagName('span')
 
         typedLetter.length === lettersInWord.length ? correctWordsTyped.push(w) : ''
         typedLetter2.length === lettersInWord.length ? wrongWordsTyped.push(w) : ''
