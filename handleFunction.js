@@ -123,7 +123,7 @@ function calcScore() {
 }
 
 function setNewTime() {
-    startTime = 10;
+    startTime = 50;
 
     var interval = setInterval(() => {
         getStart();
